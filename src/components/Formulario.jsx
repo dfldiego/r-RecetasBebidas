@@ -9,6 +9,7 @@ const Formulario = () => {
         nombre: '',
         categoria: ''
     });
+    const [error, setError] = useState(false);
 
     // USE CONTEXT
     const { categorias } = useContext(CategoriasContext);
@@ -26,6 +27,12 @@ const Formulario = () => {
     //SUBMIT
     const handleSubmit = e => {
         e.preventDefault();
+        if (busqueda.nombre.trim() === '' || busqueda.categoria.trim() === '') {
+            setError(true);
+            return;
+        }
+        setError(false);
+
         setBusquedaReceta(busqueda);
         setConsultar(true);
     }
@@ -35,6 +42,7 @@ const Formulario = () => {
             className="col-12"
             onSubmit={handleSubmit}
         >
+            {error ? (<p className="alert alert-danger text-center p-2">Todos los campos son obligatorios</p>) : null}
             <fieldset className="text-center">
                 <legend>Busca bebidas por Categoría o Ingrediente</legend>
             </fieldset>
