@@ -1,11 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { CategoriasContext } from '../context/CategoriasContext'; //van {} xq no es un export default
 
 const Formulario = () => {
 
+    //USE STATE
+    const [busqueda, setBusqueda] = useState({
+        nombre: '',
+        categoria: ''
+    });
+
     // USE CONTEXT
     const { categorias } = useContext(CategoriasContext);
     //console.log(categorias);
+
+    // funcion para leer los contenidos.
+    const handleChange = e => {
+        setBusqueda({
+            ...busqueda,
+            [e.target.name]: e.target.value
+        })
+    }
+
 
     return (
         <form
@@ -22,12 +37,14 @@ const Formulario = () => {
                         className="form-control"
                         type="text"
                         placeholder="Busca por Ingrediente"
+                        onChange={handleChange}
                     />
                 </div>
                 <div className="col-md-4">
                     <select
                         className="form-control"
                         name="categoria"
+                        onChange={handleChange}
                     >
                         <option value="">-- Selecciona Categoría --</option>
                         {categorias.map(categoria => (
