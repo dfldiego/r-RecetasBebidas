@@ -20,10 +20,22 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
     paper: {
         position: 'absolute',
-        width: 600,
+        width: 400,
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
+        overflow: 'scroll',
+        height: '100%',
+        maxHeight: 500,
+        display: 'block'
+    },
+    header: {
+        padding: '12px 0',
+        borderBottom: '1px solid darkgrey'
+    },
+    content: {
+        padding: "12px 0",
+        overflow: 'scroll'
     }
 }));
 
@@ -45,6 +57,23 @@ const Receta = ({ receta }) => {
 
     //extraer valores del context
     const { recetadetalle, setIdReceta, setRecetaDetalle } = useContext(ModalContext);
+
+    // Muestra y formatea los ingredientes
+    const mostrarIngredientes = recetadetalle => {
+        let ingredientes = [];
+        for (let i = 1; i < 16; i++) {
+            if (recetadetalle[`strIngredient${i}`]) {
+                ingredientes.push(
+                    <li>
+                        {recetadetalle[`strIngredient${i}`]}
+                        {recetadetalle[`strMeasure${i}`]}
+                    </li>
+                )
+            }
+        }
+        return ingredientes;
+    }
+
 
     return (
         <div className="col-md-4 mb-3">
@@ -80,6 +109,11 @@ const Receta = ({ receta }) => {
                             <h3 className="mt-4">Instrucciones</h3>
                             <p>{recetadetalle.strInstructions}</p>
                             <img className="img-fluid my-4" src={recetadetalle.strDrinkThumb} alt="Imagen" />
+
+                            <h3>Ingredientes y cantidades</h3>
+                            <ul>
+                                {mostrarIngredientes(recetadetalle)}
+                            </ul>
                         </div>
                     </Modal>
                 </div>
