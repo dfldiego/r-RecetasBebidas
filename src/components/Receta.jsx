@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-    },
+    }
 }));
 
 
@@ -44,7 +44,7 @@ const Receta = ({ receta }) => {
     }
 
     //extraer valores del context
-    const { setIdReceta } = useContext(ModalContext);
+    const { recetadetalle, setIdReceta, setRecetaDetalle } = useContext(ModalContext);
 
     return (
         <div className="col-md-4 mb-3">
@@ -71,11 +71,15 @@ const Receta = ({ receta }) => {
                         open={open}
                         onClose={() => {
                             setIdReceta(null);
+                            setRecetaDetalle({});
                             handleClose();
                         }}
                     >
-                        <div style={modalStyle} className="classes.paper">
-                            <h1>Desde Modal</h1>
+                        <div style={modalStyle} className={classes.paper}>
+                            <h2>{recetadetalle.strDrink}</h2>
+                            <h3 className="mt-4">Instrucciones</h3>
+                            <p>{recetadetalle.strInstructions}</p>
+                            <img className="img-fluid my-4" src={recetadetalle.strDrinkThumb} alt="Imagen" />
                         </div>
                     </Modal>
                 </div>
