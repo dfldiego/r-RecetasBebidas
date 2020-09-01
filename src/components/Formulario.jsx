@@ -13,7 +13,7 @@ const Formulario = () => {
     // USE CONTEXT
     const { categorias } = useContext(CategoriasContext);
     //console.log(categorias);
-    const { setBusquedaReceta } = useContext(RecetasContext);
+    const { setBusquedaReceta, setConsultar } = useContext(RecetasContext);
 
     // funcion para leer los contenidos.
     const handleChange = e => {
@@ -27,6 +27,7 @@ const Formulario = () => {
     const handleSubmit = e => {
         e.preventDefault();
         setBusquedaReceta(busqueda);
+        setConsultar(true);
     }
 
     return (
